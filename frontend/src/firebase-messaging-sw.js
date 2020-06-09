@@ -8,14 +8,14 @@ importScripts('https://www.gstatic.com/firebasejs/7.6.0/firebase-messaging.js');
 // Initialize the Firebase app in the service worker by passing in the
 // messagingSenderId.
 firebase.initializeApp({
-  apiKey: 'AIzaSyCbEY1-xsVo2n_HRg6qAe3p21XaQN8EaF8',
-  authDomain: 'personal-assistant-204.firebaseapp.com',
-  databaseURL: 'https://personal-assistant-204.firebaseio.com',
-  projectId: 'personal-assistant-204',
-  storageBucket: 'personal-assistant-204.appspot.com',
-  messagingSenderId: '253108558302',
-  appId: '1:253108558302:web:43294d17834f866853e54f',
-  measurementId: 'G-GH4PT43P35'
+  apiKey: 'FB_API_KEY',
+  authDomain: 'FB_AUTH_DOMAIN',
+  databaseURL: 'FB_DATABASE_URL',
+  projectId: 'FB_PROJECT_ID',
+  storageBucket: 'FB_STORAGE_BUCKET',
+  messagingSenderId: 'FB_MESSAGING_SENDER_ID',
+  appId: 'FB_APP_ID',
+  measurementId: 'FB_MEASUREMENT_ID'
 });
 
 // Retrieve an instance of Firebase Messaging so that it can handle background
