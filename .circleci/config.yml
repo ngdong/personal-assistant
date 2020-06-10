@@ -1,6 +1,5 @@
 version: 2.1
-orbs:
-  node: circleci/node:12
+
 jobs:
   build:
     executor:
@@ -10,41 +9,42 @@ jobs:
       - node/with-cache:
           steps:
             - run:
-              name: Install package
-              command: npm install
+                name: Install package
+                command: npm install
             - run:
-              name: Build production
-              command: npm build
+                name: Build production
+                command: npm build
     save_cache:
       key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       paths:
-          - dist
-          - package.json
-          - firebase.json
-          - .firebaserc
+        - dist
+        - package.json
+        - firebase.json
+        - .firebaserc
   deploy:
     docker:
-        - image: circleci/node:chakracore-8.11-browsers-legacy
+      - image: circleci/node:chakracore-8.11-browsers-legacy
     working_directory: frontend
     steps:
-        - run:
-            name: Show current branch
-            command: echo ${CIRCLE_BRANCH}
-        - restore_cache:
-            key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-        - run:
-            name: Install Firebase
-            command: npm install --save-dev firebase-tools
-        - run:
-            name: Deploy Master to Firebase
-            command: npm run firebase-deploy -- --token=$FIREBASE_TOKEN
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+      - restore_cache:
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+      - run:
+          name: Install Firebase
+          command: npm install --save-dev firebase-tools
+      - run:
+          name: Deploy Master to Firebase
+          command: npm run firebase-deploy -- --token=$FIREBASE_TOKEN
 workflows:
-    deploy:
-      jobs:
-        - build
-        - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
+  version: 2.1
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+        requires:
+          - build
+        filters:
+          branches:
+            only: master
