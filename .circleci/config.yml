@@ -1,5 +1,4 @@
 version: 2.1
-
 jobs:
   build:
     docker:
@@ -7,21 +6,20 @@ jobs:
     working_directory: ~/frontend
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run:
-                name: Install package
-                command: npm install
-            - run:
-                name: Build production
-                command: npm build
-    save_cache:
-      key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-      paths:
-        - dist
-        - package.json
-        - firebase.json
-        - .firebaserc
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run:
+          name: Install package
+          command: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+        name: Build production
+        command: npm ng build --prod
   deploy:
     docker:
       - image: circleci/node:12
@@ -31,7 +29,9 @@ jobs:
           name: Show current branch
           command: echo ${CIRCLE_BRANCH}
       - restore_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
       - run:
           name: Install Firebase
           command: npm install --save-dev firebase-tools
