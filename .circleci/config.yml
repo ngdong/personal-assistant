@@ -120,12 +120,13 @@ workflows:
   # Build testing and deploy
   build-test-deploy:
     jobs:
-      - build
+      - build:
           context: personal-assistant
       - test:
           requires:
           - build
       - deploy:
+          context: personal-assistant
           requires:
             - build
             - test
