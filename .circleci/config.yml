@@ -1,5 +1,32 @@
 version: 2.1
 jobs:
+  # The pre-check job
+  pre-check:
+    working_directory: ~/personal-assistant/frontend
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      # Checkout the code from the branch into the working_directory
+      - checkout:
+          path: ~/personal-assistant
+      # Log the current branch
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+      - restore_cache:
+          keys:
+            # Find a cache corresponding to this specific package-lock.json
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            # Fallback cache to be used
+            - v1-dependencies-
+      # Install project dependencies
+      - run:
+          name: Install local dependencies
+          command: npm install
+      # Lint the source code
+      - run:
+          name: Linting
+          command: npm run lint
   # The build job
   build:
     working_directory: ~/personal-assistant/frontend
@@ -59,10 +86,6 @@ jobs:
             - v1-dependencies-{{ checksum "package-lock.json" }}
             # Fallback cache to be used
             - v1-dependencies-
-      # Lint the source code
-      - run:
-          name: Linting
-          command: npm run lint
       # Run test the source code
       - run:
           name: Jest test
@@ -88,12 +111,13 @@ jobs:
             - v1-dependencies-
       - run:
           name: Install Firebase
-          command: npm install -g firebase-tools
+          command: npm install --save-dev firebase-tools
       - run:
           name: Firebase Deploy
-          command: firebase deploy --only hosting --token "$FIREBASE_TOKEN"
+          command: cd ..; ./frontend/node_modules/.bin/firebase deploy --only hosting --token "$FIREBASE_TOKEN"
 workflows:
   version: 2.1
+  # Build testing and deploy
   build-test-deploy:
     jobs:
       - build
@@ -107,3 +131,10 @@ workflows:
           filters:
             branches:
               only: master
+  # Pre-check code before merge into develop
+  pre-check-commit:
+    jobs:
+      - pre-check:
+          filters:
+            branches:
+              only: develop     
