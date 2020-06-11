@@ -121,6 +121,7 @@ workflows:
   build-test-deploy:
     jobs:
       - build
+          context: personal-assistant
       - test:
           requires:
           - build
