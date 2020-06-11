@@ -43,7 +43,10 @@ jobs:
       # Configue env
       - run:
           name: Configue env
-          command: sudo ../.circleci/configurer.sh
+          command: sudo ../.circleci/configurer.sh;
+      - run:
+          name: Debug show env
+          command: cat src/environments/environment.prod.ts
       # Restore local dependencies from cache
       - restore_cache:
           keys:
@@ -64,9 +67,6 @@ jobs:
           paths:
             - node_modules
             - dist
-            - package.json
-            - firebase.json
-            - .firebaserc
   test:
     working_directory: ~/personal-assistant/frontend
     docker:
