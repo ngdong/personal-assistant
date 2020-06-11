@@ -1,6 +1,45 @@
 version: 2.1
 jobs:
-  # The test job
+  # The build job
+  build:
+    working_directory: ~/personal-assistant/frontend
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      # Checkout the code from the branch into the working_directory
+      - checkout:
+          path: ~/personal-assistant
+      # Log the current branch
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+      # Configue env
+      - run:
+          name: Configue env
+          command: sudo ../.circleci/configurer.sh
+      # Restore local dependencies from cache
+      - restore_cache:
+          keys:
+            # Find a cache corresponding to this specific package-lock.json
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            # Fallback cache to be used
+            - v1-dependencies-
+      # Install project dependencies
+      - run:
+          name: Install local dependencies
+          command: npm install
+      - run:
+          name: Build production
+          command: npm run build:prod
+      # Cache local dependencies if they don't exist
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+            - dist
+            - package.json
+            - firebase.json
+            - .firebaserc
   test:
     working_directory: ~/personal-assistant/frontend
     docker:
@@ -16,23 +55,55 @@ jobs:
       # Restore local dependencies from cache
       - restore_cache:
           keys:
+            # Find a cache corresponding to this specific package-lock.json
             - v1-dependencies-{{ checksum "package-lock.json" }}
+            # Fallback cache to be used
             - v1-dependencies-
-      # Install project dependencies
-      - run:
-          name: Install local dependencies
-          command: npm install
-      # Cache local dependencies if they don't exist
-      - save_cache:
-          key: v1-dependencies-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
       # Lint the source code
       - run:
           name: Linting
           command: npm run lint
+      # Run test the source code
+      - run:
+          name: Jest test
+          command: npm run test
+  deploy:
+    working_directory: ~/personal-assistant/frontend
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      # Checkout the code from the branch into the working_directory
+      - checkout:
+          path: ~/personal-assistant
+      # Log the current branch
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+      # Restore local dependencies from cache
+      - restore_cache:
+          keys:
+            # Find a cache corresponding to this specific package-lock.json
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            # Fallback cache to be used
+            - v1-dependencies-
+      - run:
+          name: Install Firebase
+          command: npm install --save-dev firebase-tools
+      - run:
+          name: Firebase Deploy
+          command: ./node_modules/.bin/firebase deploy --only hosting --token "$FIREBASE_TOKEN"
 workflows:
   version: 2.1
   build-test-deploy:
     jobs:
-      - test
+      - build
+      - test:
+          requires:
+          - build
+      - deploy:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: master
