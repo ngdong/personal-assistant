@@ -16,9 +16,9 @@ jobs:
       - restore_cache:
           keys:
             # Find a cache corresponding to this specific package-lock.json
-            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-cache-dependencies-{{ checksum "package-lock.json" }}
             # Fallback cache to be used
-            - v1-dependencies-
+            - v1-cache-dependencies-
       # Install project dependencies
       - run:
           name: Install local dependencies
@@ -48,9 +48,9 @@ jobs:
       - restore_cache:
           keys:
             # Find a cache corresponding to this specific package-lock.json
-            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-cache-dependencies-{{ checksum "package-lock.json" }}
             # Fallback cache to be used
-            - v1-dependencies-
+            - v1-cache-dependencies-
       # Install project dependencies
       - run:
           name: Install local dependencies
@@ -60,7 +60,7 @@ jobs:
           command: npm run build:prod
       # Cache local dependencies if they don't exist
       - save_cache:
-          key: v1-dependencies-{{ checksum "package-lock.json" }}
+          key: v1-cache-dependencies-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
             - dist
@@ -83,9 +83,9 @@ jobs:
       - restore_cache:
           keys:
             # Find a cache corresponding to this specific package-lock.json
-            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-cache-dependencies-{{ checksum "package-lock.json" }}
             # Fallback cache to be used
-            - v1-dependencies-
+            - v1-cache-dependencies-
       # Run test the source code
       - run:
           name: Jest test
@@ -106,9 +106,9 @@ jobs:
       - restore_cache:
           keys:
             # Find a cache corresponding to this specific package-lock.json
-            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-cache-dependencies-{{ checksum "package-lock.json" }}
             # Fallback cache to be used
-            - v1-dependencies-
+            - v1-cache-dependencies-
       - run:
           name: Install Firebase
           command: npm install --save-dev firebase-tools
