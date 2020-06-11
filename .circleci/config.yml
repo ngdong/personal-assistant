@@ -91,7 +91,7 @@ jobs:
           name: Jest test
           command: npm run test
   deploy:
-    working_directory: ~/personal-assistant
+    working_directory: ~/personal-assistant/frontend
     docker:
       - image: circleci/node:10-browsers
     steps:
