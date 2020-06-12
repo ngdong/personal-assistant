@@ -45,9 +45,12 @@ jobs:
           command: echo ${FB_API_KEY}
       - run:
           name: Setup custom environment variables
-          command: sudo ../.circleci/testshell.sh;
+          working_directory: ~/personal-assistant/.circleci
+          shell: /bin/bash
+          command: ./testshell.sh;
           environment:
             FB_MEASUREMENT_ID: ${FB_MEASUREMENT_ID}
+            FB_API_KEY: 123123
       # Setup custom environment variables
       - run:
           name: Setup custom environment variables
