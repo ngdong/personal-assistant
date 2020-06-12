@@ -47,7 +47,7 @@ jobs:
           shell: /bin/bash
           command: ./configurer.sh;
           environment:
-            FB_API_KEY: $FB_API_KEY
+            FB_API_KEY: "$FB_API_KEY"
             FB_AUTH_DOMAIN: $FB_AUTH_DOMAIN
             FB_DATABASE_URL: $FB_DATABASE_URL
             FB_PROJECT_ID: $FB_PROJECT_ID
