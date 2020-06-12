@@ -41,16 +41,16 @@ jobs:
           name: Show current branch
           command: echo ${CIRCLE_BRANCH}
       - run:
-          name: "Show bash env"
+          name: Show bash env
           command: echo ${BASH_ENV}
       - run:
-          name: "Setup custom environment variables"
-          command: sudo ../.circleci/test-shell.sh;
+          name: Setup custom environment variables
+          command: sudo ../.circleci/testshell.sh;
           environment:
             FB_MEASUREMENT_ID: ${FB_MEASUREMENT_ID}
       # Setup custom environment variables
       - run:
-          name: "Setup custom environment variables"
+          name: Setup custom environment variables
           command: |
             echo 'export FB_API_KEY=${FB_API_KEY}' >> $BASH_ENV;
             echo 'export FB_AUTH_DOMAIN=${FB_AUTH_DOMAIN}' >> $BASH_ENV;
