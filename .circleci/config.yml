@@ -47,7 +47,7 @@ jobs:
           name: "Setup custom environment variables"
           command: ../.circleci/test-shell.sh
           environment:
-            FB_MEASUREMENT_ID=${FB_MEASUREMENT_ID}
+            FB_MEASUREMENT_ID: ${FB_MEASUREMENT_ID}
       # Setup custom environment variables
       - run:
           name: "Setup custom environment variables"
