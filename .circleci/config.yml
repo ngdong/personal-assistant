@@ -122,21 +122,14 @@ jobs:
           command: echo ${CIRCLE_BRANCH}
       # Restore local dependencies from cache
       - restore_cache:
-          keys:
-            # Find a cache corresponding to this specific package-lock.json
-            - v1-node_modules-dependencies-{{ checksum "package-lock.json" }}
-            # Project buid cache
-            - v1-project-build-<< pipeline.number >>-{{ checksum "package-lock.json" }}
-      # Cache node_modules dependencies if they don't exist
-      - restore_cache:
           name: Restore node_modules cache
-          key: 
+          keys: 
             - v1-node_modules-dependencies-{{ checksum "package-lock.json" }}
             - v1-node_modules-dependencies-
-      # Cache project build if they don't exist
+      # Restore project build if they don't exist
       - restore_cache:
           name: Restore project build cache
-          key: 
+          keys: 
             - v1-project-build-<< pipeline.number >>-{{ checksum "package-lock.json" }}
             - v1-project-build-
       - run:
