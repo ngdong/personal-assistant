@@ -13,7 +13,7 @@ confs=(
     [FB_MEASUREMENT_ID]=$FB_MEASUREMENT_ID
 )
 cd ../frontend/src
-
+echo $BASH_ENV
 configurer() {
     # Loop the config array
     for i in "${!confs[@]}"
