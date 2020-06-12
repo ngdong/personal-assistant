@@ -57,6 +57,13 @@ jobs:
           working_directory: ~/personal-assistant/.circleci
           shell: /bin/bash
           command: ./configurer.sh;
+      # Restore node_modules dependencies from cache
+      - restore_cache:
+          keys:
+            # Find a cache corresponding to this specific package-lock.json
+            - v1-cache-dependencies-{{ checksum "package-lock.json" }}
+            # Fallback cache to be used
+            - v1-cache-dependencies-
       # Install project dependencies
       - run:
           name: Install local dependencies
@@ -64,11 +71,15 @@ jobs:
       - run:
           name: Build production
           command: npm run build:prod
-      # Cache local dependencies if they don't exist
+      # Cache node_modules dependencies if they don't exist
       - save_cache:
-          key: v1-cache-dependencies-<< pipeline.number >>-{{ checksum "package-lock.json" }}
+          key: v1-cache-dependencies-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
+      # Cache project build if they don't exist
+      - save_cache:
+          key: v1-project-build-<< pipeline.number >>-{{ checksum "package-lock.json" }}
+          paths:
             - dist
   test:
     working_directory: ~/personal-assistant/frontend
@@ -86,7 +97,7 @@ jobs:
       - restore_cache:
           keys:
             # Find a cache corresponding to this specific package-lock.json
-            - v1-cache-dependencies-<< pipeline.number >>-{{ checksum "package-lock.json" }}
+            - v1-cache-dependencies-{{ checksum "package-lock.json" }}
             # Fallback cache to be used
             - v1-cache-dependencies-
       # Run test the source code
@@ -109,9 +120,11 @@ jobs:
       - restore_cache:
           keys:
             # Find a cache corresponding to this specific package-lock.json
-            - v1-cache-dependencies-<< pipeline.number >>-{{ checksum "package-lock.json" }}
+            - v1-cache-dependencies-{{ checksum "package-lock.json" }}
             # Fallback cache to be used
             - v1-cache-dependencies-
+            # Project buid cache
+            - v1-project-build-<< pipeline.number >>-{{ checksum "package-lock.json" }}
       - run:
           name: Install Firebase
           command: npm install --save-dev firebase-tools
