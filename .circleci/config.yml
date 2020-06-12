@@ -59,11 +59,12 @@ jobs:
           command: ./configurer.sh;
       # Restore node_modules dependencies from cache
       - restore_cache:
+          name: Restore node_modules cache
           keys:
             # Find a cache corresponding to this specific package-lock.json
-            - v1-cache-dependencies-{{ checksum "package-lock.json" }}
+            - v1-node_modules-dependencies-{{ checksum "package-lock.json" }}
             # Fallback cache to be used
-            - v1-cache-dependencies-
+            - v1-node_modules-dependencies-
       # Install project dependencies
       - run:
           name: Install local dependencies
@@ -73,11 +74,13 @@ jobs:
           command: npm run build:prod
       # Cache node_modules dependencies if they don't exist
       - save_cache:
-          key: v1-cache-dependencies-{{ checksum "package-lock.json" }}
+          name: Save node_modules cache
+          key: v1-node_modules-dependencies-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
       # Cache project build if they don't exist
       - save_cache:
+          name: Save project build cache
           key: v1-project-build-<< pipeline.number >>-{{ checksum "package-lock.json" }}
           paths:
             - dist
@@ -95,11 +98,12 @@ jobs:
           command: echo ${CIRCLE_BRANCH}
       # Restore local dependencies from cache
       - restore_cache:
+          name: Restore node_modules cache
           keys:
             # Find a cache corresponding to this specific package-lock.json
-            - v1-cache-dependencies-{{ checksum "package-lock.json" }}
+            - v1-node_modules-dependencies-{{ checksum "package-lock.json" }}
             # Fallback cache to be used
-            - v1-cache-dependencies-
+            - v1-node_modules-dependencies-
       # Run test the source code
       - run:
           name: Jest test
@@ -120,11 +124,21 @@ jobs:
       - restore_cache:
           keys:
             # Find a cache corresponding to this specific package-lock.json
-            - v1-cache-dependencies-{{ checksum "package-lock.json" }}
-            # Fallback cache to be used
-            - v1-cache-dependencies-
+            - v1-node_modules-dependencies-{{ checksum "package-lock.json" }}
             # Project buid cache
             - v1-project-build-<< pipeline.number >>-{{ checksum "package-lock.json" }}
+      # Cache node_modules dependencies if they don't exist
+      - restore_cache:
+          name: Restore node_modules cache
+          key: 
+            - v1-node_modules-dependencies-{{ checksum "package-lock.json" }}
+            - v1-node_modules-dependencies-
+      # Cache project build if they don't exist
+      - restore_cache:
+          name: Restore project build cache
+          key: 
+            - v1-project-build-<< pipeline.number >>-{{ checksum "package-lock.json" }}
+            - v1-project-build-
       - run:
           name: Install Firebase
           command: npm install --save-dev firebase-tools
