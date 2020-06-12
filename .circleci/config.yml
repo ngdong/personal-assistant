@@ -41,8 +41,8 @@ jobs:
           name: Show current branch
           command: echo ${CIRCLE_BRANCH}
       - run:
-          name: Show bash env
-          command: echo ${BASH_ENV}
+          name: Show firebase key
+          command: echo ${FB_API_KEY}
       - run:
           name: Setup custom environment variables
           command: sudo ../.circleci/testshell.sh;
@@ -143,17 +143,17 @@ workflows:
     jobs:
       - build:
           context: personal-assistant
-      - test:
-          requires:
-          - build
-      - deploy:
-          context: personal-assistant
-          requires:
-            - build
-            - test
-          filters:
-            branches:
-              only: master
+      # - test:
+      #     requires:
+      #     - build
+      # - deploy:
+      #     context: personal-assistant
+      #     requires:
+      #       - build
+      #       - test
+      #     filters:
+      #       branches:
+      #         only: master
   # Pre-check code before merge into develop
   pre-check-commit:
     jobs:
