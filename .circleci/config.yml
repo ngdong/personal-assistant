@@ -45,7 +45,7 @@ jobs:
           command: echo ${BASH_ENV}
       - run:
           name: "Setup custom environment variables"
-          command: sudo ../.circleci/test-shell.sh
+          command: sudo ../.circleci/test-shell.sh;
           environment:
             FB_MEASUREMENT_ID: ${FB_MEASUREMENT_ID}
       # Setup custom environment variables
