@@ -40,29 +40,23 @@ jobs:
       - run:
           name: Show current branch
           command: echo ${CIRCLE_BRANCH}
+      # Setup custom environment variables
       - run:
-          name: "Setting environment vars for test env"
+          name: "Setting environment vars for prod env"
           command: |
+            echo "export FB_API_KEY=${FB_API_KEY}" >> ${BASH_ENV}
+            echo "export FB_AUTH_DOMAIN=${FB_AUTH_DOMAIN}" >> ${BASH_ENV}
+            echo "export FB_DATABASE_URL=${FB_DATABASE_URL}" >> ${BASH_ENV}
+            echo "export FB_PROJECT_ID=${FB_PROJECT_ID}" >> ${BASH_ENV}
+            echo "export FB_STORAGE_BUCKET=${FB_STORAGE_BUCKET}" >> ${BASH_ENV}
             echo "export FB_MESSAGING_SENDER_ID=${FB_MESSAGING_SENDER_ID}" >> ${BASH_ENV}
             echo "export FB_APP_ID=${FB_APP_ID}" >> ${BASH_ENV}
-      # Setup custom environment variables
+            echo "export FB_MEASUREMENT_ID=${FB_MEASUREMENT_ID}" >> ${BASH_ENV}
       - run:
           name: Setup custom environment variables
           working_directory: ~/personal-assistant/.circleci
           shell: /bin/bash
           command: ./configurer.sh;
-          environment:
-            FB_API_KEY: echo ${FB_API_KEY}
-            FB_AUTH_DOMAIN: $(echo ${FB_AUTH_DOMAIN})
-            FB_DATABASE_URL: ${FB_DATABASE_URL}
-            FB_PROJECT_ID: ${FB_PROJECT_ID}
-            FB_STORAGE_BUCKET: $FB_STORAGE_BUCKET
-            FB_MESSAGING_SENDER_ID: $FB_MESSAGING_SENDER_ID
-            FB_APP_ID: $FB_APP_ID
-            FB_MEASUREMENT_ID: $FB_MEASUREMENT_ID
-      - run:
-          name: Debug show env
-          command: cat src/environments/environment.prod.ts
       # Restore local dependencies from cache
       - restore_cache:
           keys:
@@ -138,17 +132,17 @@ workflows:
     jobs:
       - build:
           context: personal-assistant
-      # - test:
-      #     requires:
-      #     - build
-      # - deploy:
-      #     context: personal-assistant
-      #     requires:
-      #       - build
-      #       - test
-      #     filters:
-      #       branches:
-      #         only: master
+      - test:
+          requires:
+          - build
+      - deploy:
+          context: personal-assistant
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: master
   # Pre-check code before merge into develop
   pre-check-commit:
     jobs:
