@@ -40,6 +40,11 @@ jobs:
       - run:
           name: Show current branch
           command: echo ${CIRCLE_BRANCH}
+      - run:
+          name: "Setting environment vars for test env"
+          command: |
+            echo "export FB_MESSAGING_SENDER_ID=${FB_MESSAGING_SENDER_ID}" >> ${BASH_ENV}
+            echo "export FB_APP_ID=${FB_APP_ID}" >> ${BASH_ENV}
       # Setup custom environment variables
       - run:
           name: Setup custom environment variables
@@ -47,8 +52,8 @@ jobs:
           shell: /bin/bash
           command: ./configurer.sh;
           environment:
-            FB_API_KEY: ${FB_API_KEY}
-            FB_AUTH_DOMAIN: ${FB_AUTH_DOMAIN}
+            FB_API_KEY: echo ${FB_API_KEY}
+            FB_AUTH_DOMAIN: $(echo ${FB_AUTH_DOMAIN})
             FB_DATABASE_URL: ${FB_DATABASE_URL}
             FB_PROJECT_ID: ${FB_PROJECT_ID}
             FB_STORAGE_BUCKET: $FB_STORAGE_BUCKET
