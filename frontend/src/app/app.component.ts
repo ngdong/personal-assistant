@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessagingService } from './core/services/messaging.service';
+import { MessagingService } from '@core/services/messaging.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
