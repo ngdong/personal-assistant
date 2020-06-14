@@ -1,4 +1,8 @@
 version: 2.1
+master_only: &master_only
+  filters:
+    branches:
+      only: master
 jobs:
   # The pre-check job
   pre-check:
@@ -144,18 +148,18 @@ workflows:
   build-test-deploy:
     jobs:
       - build:
+          <<: *master_only
           context: personal-assistant
       - test:
+          <<: *master_only
           requires:
-          - build
+            - build
       - deploy:
+          <<: *master_only
           context: personal-assistant
           requires:
             - build
             - test
-          filters:
-            branches:
-              only: master
   # Pre-check code before merge into develop
   pre-check-commit:
     jobs:
