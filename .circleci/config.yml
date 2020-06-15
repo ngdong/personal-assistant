@@ -31,6 +31,10 @@ jobs:
       - run:
           name: Linting
           command: npm run lint
+      # Unit test the source code
+      - run:
+          name: Unit testing
+          command: npm run test
   # The build job
   build:
     working_directory: ~/personal-assistant/frontend
