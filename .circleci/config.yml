@@ -3,12 +3,34 @@ master_only: &master_only
   filters:
     branches:
       only: master
+commands:
+  # Restore cache
+  restore_npm_cache_cmd:
+    steps:
+      # Restore node_modules dependencies from cache
+      - restore_cache:
+        keys:
+          # Find a cache corresponding to this specific package-lock.json
+          - v1-cache-dependencies-{{ checksum "package-lock.json" }}
+          # Fallback cache to be used
+          - v1-cache-dependencies-
+  restore_prod_cache_cmd:
+    steps:
+      # Restore project build if they don't exist
+      - restore_cache:
+        name: Restore project build cache
+        keys: 
+          - v1-project-build-<< pipeline.number >>-{{ checksum "package-lock.json" }}
+          - v1-project-build-
+executors:
+  docker-executor:
+    docker:
+      - image: circleci/node:10-browsers
 jobs:
   # The pre-check job
   pre-check:
     working_directory: ~/personal-assistant/frontend
-    docker:
-      - image: circleci/node:10-browsers
+    executor: docker-executor
     steps:
       # Checkout the code from the branch into the working_directory
       - checkout:
@@ -17,12 +39,8 @@ jobs:
       - run:
           name: Show current branch
           command: echo ${CIRCLE_BRANCH}
-      - restore_cache:
-          keys:
-            # Find a cache corresponding to this specific package-lock.json
-            - v1-cache-dependencies-{{ checksum "package-lock.json" }}
-            # Fallback cache to be used
-            - v1-cache-dependencies-
+      # Restore local dependencies from cache
+      - restore_npm_cache_cmd
       # Install project dependencies
       - run:
           name: Install local dependencies
@@ -38,8 +56,7 @@ jobs:
   # The build job
   build:
     working_directory: ~/personal-assistant/frontend
-    docker:
-      - image: circleci/node:10-browsers
+    executor: docker-executor
     steps:
       # Checkout the code from the branch into the working_directory
       - checkout:
@@ -65,14 +82,8 @@ jobs:
           working_directory: ~/personal-assistant/.circleci
           shell: /bin/bash
           command: ./configurer.sh;
-      # Restore node_modules dependencies from cache
-      - restore_cache:
-          name: Restore node_modules cache
-          keys:
-            # Find a cache corresponding to this specific package-lock.json
-            - v1-node_modules-dependencies-{{ checksum "package-lock.json" }}
-            # Fallback cache to be used
-            - v1-node_modules-dependencies-
+      # Restore local dependencies from cache
+      - restore_npm_cache_cmd
       # Install project dependencies
       - run:
           name: Install local dependencies
@@ -94,8 +105,7 @@ jobs:
             - dist
   test:
     working_directory: ~/personal-assistant/frontend
-    docker:
-      - image: circleci/node:10-browsers
+    executor: docker-executor
     steps:
       # Checkout the code from the branch into the working_directory
       - checkout:
@@ -105,21 +115,14 @@ jobs:
           name: Show current branch
           command: echo ${CIRCLE_BRANCH}
       # Restore local dependencies from cache
-      - restore_cache:
-          name: Restore node_modules cache
-          keys:
-            # Find a cache corresponding to this specific package-lock.json
-            - v1-node_modules-dependencies-{{ checksum "package-lock.json" }}
-            # Fallback cache to be used
-            - v1-node_modules-dependencies-
+      - restore_npm_cache_cmd
       # Run test the source code
       - run:
           name: Jest test
           command: npm run test
   deploy:
     working_directory: ~/personal-assistant/frontend
-    docker:
-      - image: circleci/node:10-browsers
+    executor: docker-executor
     steps:
       # Checkout the code from the branch into the working_directory
       - checkout:
@@ -129,17 +132,9 @@ jobs:
           name: Show current branch
           command: echo ${CIRCLE_BRANCH}
       # Restore local dependencies from cache
-      - restore_cache:
-          name: Restore node_modules cache
-          keys: 
-            - v1-node_modules-dependencies-{{ checksum "package-lock.json" }}
-            - v1-node_modules-dependencies-
+      - restore_npm_cache_cmd
       # Restore project build if they don't exist
-      - restore_cache:
-          name: Restore project build cache
-          keys: 
-            - v1-project-build-<< pipeline.number >>-{{ checksum "package-lock.json" }}
-            - v1-project-build-
+      - restore_prod_cache_cmd
       - run:
           name: Install Firebase
           command: npm install --save-dev firebase-tools
