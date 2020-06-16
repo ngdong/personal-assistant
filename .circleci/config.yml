@@ -7,21 +7,22 @@ commands:
   # Restore cache
   restore_npm_cache_cmd:
     steps:
-      # Restore node_modules dependencies from cache
+      # Restore npm dependencies from cache
       - restore_cache:
-        keys:
-          # Find a cache corresponding to this specific package-lock.json
-          - v1-cache-dependencies-{{ checksum "package-lock.json" }}
-          # Fallback cache to be used
-          - v1-cache-dependencies-
+          name: Restore npm dependencies from cache
+          keys:
+            # Find a cache corresponding to this specific package-lock.json
+            - v1-npm-dependencies-{{ checksum "package-lock.json" }}
+            # Fallback cache to be used
+            - v1-npm-dependencies-
   restore_prod_cache_cmd:
     steps:
       # Restore project build if they don't exist
       - restore_cache:
-        name: Restore project build cache
-        keys: 
-          - v1-project-build-<< pipeline.number >>-{{ checksum "package-lock.json" }}
-          - v1-project-build-
+          name: Restore project build from cache
+          keys: 
+            - v1-project-build-<< pipeline.number >>-{{ checksum "package-lock.json" }}
+            - v1-project-build-
 executors:
   docker-executor:
     docker:
@@ -91,15 +92,15 @@ jobs:
       - run:
           name: Build production
           command: npm run build:prod
-      # Cache node_modules dependencies if they don't exist
+      # Cache npm dependencies if they don't exist
       - save_cache:
-          name: Save node_modules cache
-          key: v1-node_modules-dependencies-{{ checksum "package-lock.json" }}
+          name: Saving npm cache
+          key: v1-npm-dependencies-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
       # Cache project build if they don't exist
       - save_cache:
-          name: Save project build cache
+          name: Saving project build cache
           key: v1-project-build-<< pipeline.number >>-{{ checksum "package-lock.json" }}
           paths:
             - dist
