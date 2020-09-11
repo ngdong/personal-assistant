@@ -1,0 +1,7 @@
+.button {
+  border-radius: 0;
+
+  @media (min-width: theme('screens.sm')) {
+    border-radius: theme('borderRadius.lg');
+  }
+}
