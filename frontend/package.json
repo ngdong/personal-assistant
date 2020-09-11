@@ -6,9 +6,8 @@
     "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "build:prod": "ng build --prod",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:ci": "jest --runInBand",
+    "test": "ng test",
+    "test:ci": "ng lint && ng test --configuration=ci",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -31,6 +30,7 @@
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^10.0.0",
+    "@angular-builders/jest": "^10.0.1",
     "@angular-devkit/build-angular": "~0.1000.4",
     "@angular/cli": "~10.0.4",
     "@angular/compiler-cli": "~10.0.5",
@@ -69,6 +69,7 @@
       "^@app/(.*)$": "<rootDir>/src/app/$1",
       "^@core/(.*)$": "<rootDir>/src/app/@core/$1",
       "^@shared/(.*)$": "<rootDir>/src/app/@shared/$1",
+      "^@shell/(.*)$": "<rootDir>/src/app/@shell/$1",
       "^@env/(.*)$": "<rootDir>/src/environments/$1"
     }
   }
