@@ -1,7 +1,9 @@
+import { _ParseAST } from '@angular/compiler';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { defer, Observable, of } from 'rxjs';
 
-import { Credentials, CredentialsService } from './credentials.service';
+import { CredentialsService } from './credentials.service';
 
 export interface LoginContext {
   username: string;
@@ -17,22 +19,26 @@ export interface LoginContext {
   providedIn: 'root'
 })
 export class AuthenticationService {
+  private user$: Observable<firebase.User>;
 
-  constructor(private credentialsService: CredentialsService) { }
+  constructor(private afAuh: AngularFireAuth, private credentialsService: CredentialsService) {
+    this.user$ = this.afAuh.authState;
+    this.user$.subscribe(user => this.credentialsService.setCredentials(user, true));
+  }
 
   /**
    * Authenticates the user.
    * @param context The login parameters.
    * @return The user credentials.
    */
-  login(context: LoginContext): Observable<Credentials> {
-    // Replace by proper authentication call
-    const data = {
-      username: context.username,
-      token: '123456'
-    };
-    this.credentialsService.setCredentials(data, context.remember);
-    return of(data);
+  login({ username, password }: LoginContext): Observable<string> {
+    return defer(() => {
+      return this.afAuh.signInWithEmailAndPassword(username, password)
+        .then(res => {
+          this.credentialsService.setCredentials(res.user, true);
+          return 'Done';
+        });
+      });
   }
 
   /**
@@ -41,8 +47,12 @@ export class AuthenticationService {
    */
   logout(): Observable<boolean> {
     // Customize credentials invalidation here
-    this.credentialsService.setCredentials();
-    return of(true);
+    return defer(() => {
+      return this.afAuh.signOut().then(res => {
+        this.credentialsService.setCredentials();
+        return true;
+      });
+    });
   }
 
 }

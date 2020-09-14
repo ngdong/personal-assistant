@@ -2,20 +2,19 @@ import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { AuthenticationService } from './authentication.service';
 import { CredentialsService, Credentials } from './credentials.service';
-import { MockCredentialsService } from '../mocks/credentials.service.mock';
 
 describe('AuthenticationService', () => {
   let authenticationService: AuthenticationService;
-  let credentialsService: MockCredentialsService;
+  let credentialsService: CredentialsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: CredentialsService, useClass: MockCredentialsService }, AuthenticationService]
+      providers: [ CredentialsService, AuthenticationService]
     });
 
     authenticationService = TestBed.inject(AuthenticationService);
     credentialsService = TestBed.inject(CredentialsService);
-    credentialsService.credentials = null;
+    credentialsService.setCredentials(null);
     spyOn(credentialsService, 'setCredentials').and.callThrough();
   });
 
@@ -31,7 +30,7 @@ describe('AuthenticationService', () => {
       // Assert
       request.subscribe(credentials => {
         expect(credentials).toBeDefined();
-        expect(credentials.token).toBeDefined();
+        expect(credentials.length).toBeDefined();
       });
     }));
 
@@ -49,8 +48,8 @@ describe('AuthenticationService', () => {
       request.subscribe(() => {
         expect(credentialsService.isAuthenticated()).toBe(true);
         expect(credentialsService.credentials).not.toBeNull();
-        expect((credentialsService.credentials as Credentials).token).toBeDefined();
-        expect((credentialsService.credentials as Credentials).token).not.toBeNull();
+        expect((credentialsService.credentials as firebase.User).displayName).toBeDefined();
+        expect((credentialsService.credentials as firebase.User).email).not.toBeNull();
       });
     }));
 

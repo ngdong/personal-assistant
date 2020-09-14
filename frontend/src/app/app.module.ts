@@ -7,10 +7,6 @@ import { ShellModule } from './@shell/shell.module';
 import { AuthModule } from './auth/auth.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { environment } from '@env/environment';
-import { AngularFireMessaging } from '@angular/fire/messaging';
 
 @NgModule({
   declarations: [
@@ -22,13 +18,9 @@ import { AngularFireMessaging } from '@angular/fire/messaging';
     SharedModule,
     ShellModule,
     AuthModule,
-    AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule
+    AppRoutingModule
   ],
-  providers: [
-    AngularFireMessaging
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

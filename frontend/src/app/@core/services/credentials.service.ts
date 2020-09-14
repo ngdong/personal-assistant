@@ -18,7 +18,7 @@ const credentialsKey = 'credentials';
 export class CredentialsService {
 
   // tslint:disable-next-line: variable-name
-  private _credentials: Credentials | null = null;
+  private _credentials: firebase.User | null = null;
 
   constructor() {
     const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
@@ -39,7 +39,7 @@ export class CredentialsService {
    * Gets the user credentials.
    * @return The user credentials or null if the user is not authenticated.
    */
-  get credentials(): Credentials | null {
+  get credentials(): firebase.User | null {
     return this._credentials;
   }
 
@@ -50,7 +50,7 @@ export class CredentialsService {
    * @param credentials The user credentials.
    * @param remember True to remember credentials across sessions.
    */
-  setCredentials(credentials?: Credentials, remember?: boolean) {
+  setCredentials(credentials?: firebase.User, remember?: boolean) {
     this._credentials = credentials || null;
 
     if (credentials) {

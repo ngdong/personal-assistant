@@ -43,7 +43,8 @@
             },
             "allowedCommonJsDependencies": [
               "firebase/app",
-              "@firebase/database"
+              "@firebase/database",
+              "@firebase/auth"
             ]
           },
           "configurations": {
