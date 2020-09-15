@@ -95,20 +95,6 @@
             "browserTarget": "personal-assistant:build"
           }
         },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "watch": true
-          },
-          "configurations": {
-            "ci": {
-              "watch": false,
-              "ci": true,
-              "coverage": true,
-              "silent": true
-            }
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {

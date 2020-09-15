@@ -1,4 +1,5 @@
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { CoreModule } from '../core.module';
 
 import { AuthenticationService } from './authentication.service';
 import { CredentialsService, Credentials } from './credentials.service';
@@ -9,7 +10,13 @@ describe('AuthenticationService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ CredentialsService, AuthenticationService]
+      imports: [
+        CoreModule
+      ],
+      providers: [
+        CredentialsService,
+        AuthenticationService
+      ]
     });
 
     authenticationService = TestBed.inject(AuthenticationService);
@@ -30,7 +37,7 @@ describe('AuthenticationService', () => {
       // Assert
       request.subscribe(credentials => {
         expect(credentials).toBeDefined();
-        expect(credentials.length).toBeDefined();
+        expect(credentials.displayName).toBeDefined();
       });
     }));
 

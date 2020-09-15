@@ -1,4 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterOutlet } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 
 import { ShellComponent } from './shell.component';
 
@@ -8,7 +12,14 @@ describe('ShellComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShellComponent ]
+      imports: [
+        RouterTestingModule
+      ],
+      declarations: [
+        ShellComponent,
+        HeaderComponent,
+        FooterComponent
+      ]
     })
     .compileComponents();
   }));

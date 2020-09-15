@@ -4,7 +4,7 @@ import { MessagingService } from './messaging.service';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { environment } from 'src/environments/environment';
+import { environment } from '@env/environment';
 
 describe('MessagingService', () => {
   let service: MessagingService;

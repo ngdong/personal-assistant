@@ -53,7 +53,7 @@ jobs:
       # Unit test the source code
       - run:
           name: Unit testing
-          command: npm run test
+          command: npm run test:ci
   # The build job
   build:
     working_directory: ~/personal-assistant/frontend
@@ -120,7 +120,7 @@ jobs:
       # Run test the source code
       - run:
           name: Jest test
-          command: npm run test
+          command: npm run test:ci
   deploy:
     working_directory: ~/personal-assistant/frontend
     executor: docker-executor

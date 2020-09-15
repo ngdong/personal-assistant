@@ -1,17 +1,19 @@
-import { Credentials } from '../services/credentials.service';
-
 export class MockCredentialsService {
 
-  credentials: Credentials | null = {
-    username: 'test',
-    token: '123'
+  credentials: firebase.UserInfo | null = {
+    displayName: 'test',
+    email: 'test',
+    phoneNumber: 'test',
+    photoURL: 'test',
+    providerId: '123',
+    uid: '123456'
   };
 
   isAuthenticated(): boolean {
     return !!this.credentials;
   }
 
-  setCredentials(credentials?: Credentials) {
+  setCredentials(credentials?: firebase.UserInfo) {
     this.credentials = credentials || null;
   }
 

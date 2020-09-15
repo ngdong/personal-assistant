@@ -24,11 +24,18 @@ describe('CredentialsService', () => {
   describe('setCredentials', () => {
     it('should authenticate user if credentials are set', () => {
       // Act
-      // credentialsService.setCredentials({ email: 'me' });
+      credentialsService.setCredentials({
+        displayName: 'me',
+        email: 'test',
+        phoneNumber: 'test',
+        photoURL: 'test',
+        providerId: '123',
+        uid: '123456'
+      });
 
       // Assert
       expect(credentialsService.isAuthenticated()).toBe(true);
-      expect((credentialsService.credentials as firebase.User).email).toBe('me');
+      expect((credentialsService.credentials as firebase.UserInfo).displayName).toBe('me');
     });
 
     it('should clean authentication', () => {
@@ -41,7 +48,14 @@ describe('CredentialsService', () => {
 
     it('should persist credentials for the session', () => {
       // Act
-      // credentialsService.setCredentials({ username: 'me', token: '123' });
+      credentialsService.setCredentials({
+        displayName: 'me',
+        email: 'test',
+        phoneNumber: 'test',
+        photoURL: 'test',
+        providerId: '123',
+        uid: '123456'
+      });
 
       // Assert
       expect(sessionStorage.getItem(credentialsKey)).not.toBeNull();
@@ -50,7 +64,14 @@ describe('CredentialsService', () => {
 
     it('should persist credentials across sessions', () => {
       // Act
-      // credentialsService.setCredentials({ username: 'me', token: '123' }, true);
+      credentialsService.setCredentials({
+        displayName: 'me',
+        email: 'test',
+        phoneNumber: 'test',
+        photoURL: 'test',
+        providerId: '123',
+        uid: '123456'
+      }, true);
 
       // Assert
       expect(localStorage.getItem(credentialsKey)).not.toBeNull();

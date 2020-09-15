@@ -1,8 +1,6 @@
-import { _ParseAST } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { defer, Observable, of } from 'rxjs';
-
+import { defer, Observable } from 'rxjs';
 import { CredentialsService } from './credentials.service';
 
 export interface LoginContext {
@@ -19,11 +17,14 @@ export interface LoginContext {
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private user$: Observable<firebase.User>;
+  private user$: Observable<firebase.UserInfo>;
 
-  constructor(private afAuh: AngularFireAuth, private credentialsService: CredentialsService) {
+  constructor(
+    private afAuh: AngularFireAuth,
+    private credentialsService: CredentialsService
+  ) {
     this.user$ = this.afAuh.authState;
-    this.user$.subscribe(user => this.credentialsService.setCredentials(user, true));
+    this.user$.subscribe(userInfo => this.credentialsService.setCredentials(userInfo, true));
   }
 
   /**
@@ -31,12 +32,12 @@ export class AuthenticationService {
    * @param context The login parameters.
    * @return The user credentials.
    */
-  login({ username, password }: LoginContext): Observable<string> {
+  login({ username, password }: LoginContext): Observable<firebase.UserInfo> {
     return defer(() => {
       return this.afAuh.signInWithEmailAndPassword(username, password)
         .then(res => {
           this.credentialsService.setCredentials(res.user, true);
-          return 'Done';
+          return res.user;
         });
       });
   }

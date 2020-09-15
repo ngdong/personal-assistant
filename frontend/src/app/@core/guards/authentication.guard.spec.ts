@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
-
-import { CredentialsService } from '../services/credentials.service';
+import { CredentialsService } from '@core/services/credentials.service';
+import { MockCredentialsService } from '@core/mocks/credentials.service.mock';
 import { AuthenticationGuard } from './authentication.guard';
 
 describe('AuthenticationGuard', () => {
   let authenticationGuard: AuthenticationGuard;
-  let credentialsService: CredentialsService;
+  let credentialsService: MockCredentialsService;
   let mockRouter: any;
   let mockSnapshot: any;
 
@@ -21,7 +21,7 @@ describe('AuthenticationGuard', () => {
     TestBed.configureTestingModule({
       providers: [
         AuthenticationGuard,
-        CredentialsService,
+        { provide: CredentialsService, useClass: MockCredentialsService },
         { provide: Router, useValue: mockRouter }
       ]
     });
@@ -40,7 +40,7 @@ describe('AuthenticationGuard', () => {
 
   it('should return false and redirect to login if user is not authenticated', () => {
     // Arrange
-    credentialsService.setCredentials(null);
+    credentialsService.credentials = null;
 
     // Act
     const result = authenticationGuard.canActivate(new ActivatedRouteSnapshot(), mockSnapshot);
@@ -54,7 +54,7 @@ describe('AuthenticationGuard', () => {
   });
 
   it('should save url as queryParam if user is not authenticated', () => {
-    credentialsService.setCredentials(null);
+    credentialsService.credentials = null;
     mockRouter.url = '/about';
     mockSnapshot.url = '/about';
 
