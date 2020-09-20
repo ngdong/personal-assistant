@@ -6,7 +6,7 @@ import { AuthenticationService } from '@core/services/authentication.service';
 import { untilDestroyed } from '@core/utils/until-destroyed';
 
 @Component({
-  selector: 'app-login',
+  selector: 'ngd-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })

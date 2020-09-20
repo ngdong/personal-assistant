@@ -12,7 +12,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "ngd",
       "architect": {
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
@@ -43,8 +43,10 @@
             },
             "allowedCommonJsDependencies": [
               "firebase/app",
+              "@firebase/app",
               "@firebase/database",
-              "@firebase/auth"
+              "@firebase/auth",
+              "@firebase/firestore"
             ]
           },
           "configurations": {

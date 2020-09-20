@@ -4,6 +4,7 @@ import { ShellComponent } from './shell.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShellRoutingModule } from './shell-routing.module';
+import { SharedModule } from '@app/@shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { ShellRoutingModule } from './shell-routing.module';
   ],
   imports: [
     CommonModule,
-    ShellRoutingModule
+    ShellRoutingModule,
+    SharedModule
   ]
 })
 export class ShellModule { }

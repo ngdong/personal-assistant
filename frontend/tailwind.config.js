@@ -14,6 +14,9 @@ module.exports = (isProd) => ({
         'main-text': 'var(--text-main)',
         'secondary-text': 'var(--text-secondary)',
       },
+      backgroundImage: theme => ({
+        'app-wrapper': "url('/assets/images/background.png')"
+      })
     },
   },
   variants: {},

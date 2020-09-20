@@ -4,7 +4,7 @@ import { AuthenticationService } from '@core/services/authentication.service';
 import { untilDestroyed } from '@core/utils/until-destroyed';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'ngd-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
