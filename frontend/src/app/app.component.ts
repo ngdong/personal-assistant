@@ -3,7 +3,7 @@ import { MessagingService } from '@core/services/messaging.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: 'app-root',
+  selector: 'ngd-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
