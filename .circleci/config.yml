@@ -161,9 +161,9 @@ workflows:
             - build
             - test
   # Pre-check code before merge into develop
-  pre-check-commit:
-    jobs:
-      - pre-check:
-          filters:
-            branches:
-              only: develop     
+  # pre-check-commit:
+  #   jobs:
+  #     - pre-check:
+  #         filters:
+  #           branches:
+  #             only: develop     

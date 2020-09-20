@@ -42,6 +42,7 @@
     "@types/jest": "^26.0.13",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
+    "husky": "^4.3.0",
     "jest": "^26.4.2",
     "jest-preset-angular": "^8.3.1",
     "postcss-import": "^12.0.1",
@@ -76,6 +77,11 @@
       "^@shared/(.*)$": "<rootDir>/src/app/@shared/$1",
       "^@shell/(.*)$": "<rootDir>/src/app/@shell/$1",
       "^@env/(.*)$": "<rootDir>/src/environments/$1"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm test"
     }
   }
 }
