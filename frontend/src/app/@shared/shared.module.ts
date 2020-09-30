@@ -1,22 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faBell, faAngleDown, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { faCheckSquare as farCheckSquare } from '@fortawesome/free-regular-svg-icons';
-import { faStackOverflow, faGithub, faMedium } from '@fortawesome/free-brands-svg-icons';
+import { CircularProgressComponent } from './components/circular-progress/circular-progress.component';
+import { NgdIconsModule } from 'ngd-icons';
 
 @NgModule({
-  declarations: [],
+  declarations: [CircularProgressComponent],
   imports: [
     CommonModule,
-    FontAwesomeModule
+    NgdIconsModule
   ],
   exports: [
-    FontAwesomeModule
+    CircularProgressComponent,
+    NgdIconsModule
   ]
 })
 export class SharedModule {
-  constructor(private library: FaIconLibrary) {
-    library.addIcons(faBell, faAngleDown, faSearch);
-  }
+  constructor() { }
 }

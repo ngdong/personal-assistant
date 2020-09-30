@@ -1,3 +1,3 @@
 {
-    gcm_sender_id: "253108558302"
+    gcm_sender_id: "FB_MESSAGING_SENDER_ID"
 }

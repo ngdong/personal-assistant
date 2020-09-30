@@ -4,13 +4,21 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
+    "prebuild": "echo I run before the build script",
     "build": "ng build",
+    "postbuild": "echo I run after the build script",
+    "prebuild:prod": "npm run build:ngd-icons",
     "build:prod": "ng build --prod",
+    "prebuild:ngd-icons": "svg-to-ts",
+    "build:ngd-icons": "ng build ngd-icons --prod",
+    "postbuild:ngd-icons": "cpx 'projects/ngd-icons/icons/**/*.{d.ts,js}' dist/ngd-icons/icons",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:ci": "jest --runInBand",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "generate-icons": "svg-to-ts",
+    "analyze": "ng build personal-assistant --prod --stats-json && webpack-bundle-analyzer ./dist/personal-assistant/stats.json"
   },
   "private": true,
   "dependencies": {
@@ -23,11 +31,6 @@
     "@angular/platform-browser": "~10.0.5",
     "@angular/platform-browser-dynamic": "~10.0.5",
     "@angular/router": "~10.0.5",
-    "@fortawesome/angular-fontawesome": "^0.7.0",
-    "@fortawesome/fontawesome-svg-core": "^1.2.30",
-    "@fortawesome/free-brands-svg-icons": "^5.14.0",
-    "@fortawesome/free-regular-svg-icons": "^5.14.0",
-    "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "firebase": "^7.20.0",
     "lodash-es": "^4.17.15",
     "rxjs": "~6.5.4",
@@ -37,23 +40,28 @@
   "devDependencies": {
     "@angular-builders/custom-webpack": "^10.0.0",
     "@angular-devkit/build-angular": "~0.1000.4",
+    "@angular-devkit/build-ng-packagr": "~0.1000.8",
     "@angular/cli": "~10.0.4",
     "@angular/compiler-cli": "~10.0.5",
     "@types/jest": "^26.0.13",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
+    "cpx": "^1.5.0",
     "husky": "^4.3.0",
     "jest": "^26.4.2",
     "jest-preset-angular": "^8.3.1",
+    "ng-packagr": "^10.0.0",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-scss": "^2.1.1",
     "protractor": "~7.0.0",
+    "svg-to-ts": "^5.2.0",
     "tailwindcss": "^1.8.5",
     "ts-jest": "^26.3.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.9.5",
+    "webpack-bundle-analyzer": "^3.9.0",
     "webpack-merge": "^5.1.4"
   },
   "jest": {
@@ -83,5 +91,18 @@
     "hooks": {
       "pre-push": "npm run lint && npm test"
     }
+  },
+  "svg-to-ts": {
+    "srcFiles": [
+      "./src/assets/icons/**/*.svg"
+    ],
+    "outputDirectory": "./projects/ngd-icons/icons",
+    "interfaceName": "NgdIcon",
+    "typeName": "ngdIcon",
+    "prefix": "ngdIcon",
+    "modelFileName": "ngd-icon.model",
+    "additionalModelFile": "./projects/ngd-icons/src/lib",
+    "compileSources": true,
+    "conversionType": "files"
   }
 }

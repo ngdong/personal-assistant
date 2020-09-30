@@ -44,6 +44,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
 # Environments
-/scr/environments
+/src/environments
+# Library build
+/projects/ngd-icons/icons
+# Firebase setting
+manifest.js
+firebase-messaging-sw.js

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SharedModule } from '@shared/shared.module';
+import { MockNgdIconsComponent } from '@core/mocks/ngd-icons.component.mock';
 
 import { HeaderComponent } from './header.component';
 
@@ -9,8 +9,10 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ SharedModule ],
-      declarations: [ HeaderComponent ]
+      declarations: [
+        HeaderComponent,
+        MockNgdIconsComponent
+      ]
     })
     .compileComponents();
   }));

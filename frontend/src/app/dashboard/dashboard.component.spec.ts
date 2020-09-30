@@ -1,9 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { CoreModule } from '@app/@core/core.module';
-import { AuthenticationService } from '@app/@core/services/authentication.service';
+import { CoreModule } from '@core/core.module';
+import { AuthenticationService } from '@core/services/authentication.service';
 
 import { DashboardComponent } from './dashboard.component';
+import { MockNgdIconsComponent } from '@app/@core/mocks/ngd-icons.component.mock';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -18,7 +19,10 @@ describe('DashboardComponent', () => {
       imports: [
         CoreModule
       ],
-      declarations: [ DashboardComponent ],
+      declarations: [
+        DashboardComponent,
+        MockNgdIconsComponent
+      ],
       providers: [
         AuthenticationService,
         { provide: Router, useValue: mockRouter }

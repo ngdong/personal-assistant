@@ -25,6 +25,8 @@ describe('LoginComponent', () => {
       declarations: [ LoginComponent ],
       providers: [
         FormBuilder,
+        AuthenticationService,
+        CredentialsService,
         { provide: Router, useValue: mockRouter }
       ]
     })

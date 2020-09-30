@@ -4,7 +4,9 @@ import { ShellComponent } from './shell.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShellRoutingModule } from './shell-routing.module';
-import { SharedModule } from '@app/@shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
+import { NgdIconsRegistry } from 'ngd-icons';
+import { ngdIconBell, ngdIconSearch, ngdIconAngleArrowDown } from 'ngd-icons/icons';
 
 @NgModule({
   declarations: [
@@ -18,4 +20,8 @@ import { SharedModule } from '@app/@shared/shared.module';
     SharedModule
   ]
 })
-export class ShellModule { }
+export class ShellModule {
+  constructor(private iconRegistry: NgdIconsRegistry) {
+    this.iconRegistry.registerIcons([ngdIconBell, ngdIconSearch, ngdIconAngleArrowDown]);
+  }
+}

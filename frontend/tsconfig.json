@@ -12,6 +12,18 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ngd-icons/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ngd-icons/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ngd-circular-progress/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ngd-circular-progress/tsconfig.spec.json"
     }
   ]
 }

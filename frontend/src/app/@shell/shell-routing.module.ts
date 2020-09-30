@@ -13,6 +13,10 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () => import('@app/dashboard/dashboard.module').then(m => m.DashboardModule)
+      },
+      {
+        path: 'todo',
+        loadChildren: () => import('@app/todo/todo.module').then(m => m.TodoModule)
       }
     ]
   }

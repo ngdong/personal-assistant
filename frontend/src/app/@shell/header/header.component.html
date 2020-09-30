@@ -1,10 +1,10 @@
-<div class="container mx-auto">
-  <div class="flex items-center pt-6 justify-between">
+<div class="container px-2 xl:px-0 mx-auto">
+  <div class="flex items-center pt-2 lg:pt-6 justify-between">
     <div class="flex items-center flex-no-shrink text-white mr-6">
       <svg class="h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
       <span class="font-semibold text-xl tracking-tight">Todo</span>
     </div>
-    <div class="bg-transparent text-center py-4 lg:px-4">
+    <div class="hidden absolute md:relative text-center py-4 lg:px-4">
       <div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
         <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">New</span>
         <span class="font-semibold mr-2 text-left flex-auto">Get the coolest t-shirts from our brand new store</span>
@@ -13,8 +13,8 @@
     </div>
     <div class="flex items-center">
       <span class="relative inline-flex mr-6">
-        <fa-icon [icon]="['fas', 'bell']" class="text-white text-3xl"></fa-icon>
-        <span class="flex absolute h-3 w-3 top-0 right-0 mt-2 mr-0">
+        <ngd-icons name="bell" class="text-yellow-500 w-8"></ngd-icons>
+        <span class="flex absolute h-3 w-3 top-0 right-0 mr-0">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
         </span>
@@ -22,11 +22,11 @@
       <div class="flex items-center">
         <img class="w-8 h-8 rounded-full mr-3" alt="User Profile" src="https://source.unsplash.com/user/erondu/1600x900">
         <span class="tracking-tight text-white font-semibold">Dong Nguyen</span>
-        <fa-icon [icon]="['fas', 'angle-down']" class="text-white text-xl ml-2"></fa-icon>
+        <ngd-icons name="angle_arrow_down" class="text-white text-xl ml-2 w-3"></ngd-icons>
       </div>
     </div>
   </div>
-  <nav class="flex items-center justify-between flex-wrap text-white mt-10">
+  <nav class="hidden lg:flex items-center justify-between flex-wrap text-white mt-10">
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
       <div class="text-base flex-grow">
         <a class="block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4 px-4 py-1">
@@ -39,8 +39,8 @@
           Blog
         </a>
       </div>
-      <div class="flex items-center py-1 px-2 rounded-lg bg-teal-200 w-1/3">
-        <fa-icon [icon]="['fas', 'search']" class="text-gray-500 text-base"></fa-icon>
+      <div class="flex items-center py-1 px-2 rounded-lg bg-teal-200 w-100 xl:w-1/3 ">
+        <ngd-icons name="search" class="text-gray-500 w-4"></ngd-icons>
         <input class="appearance-none bg-transparent border-none w-full text-teal-900 mr-3 py-1 px-2 leading-tight outline-none" type="text" placeholder="Search some thing..." aria-label="Search key">
       </div>
     </div>

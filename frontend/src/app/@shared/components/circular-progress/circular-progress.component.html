@@ -1,0 +1,15 @@
+<div class="relative {{progressClass}}" [ngStyle]="{'width.px': diameter, 'height.px': diameter }">
+  <svg class="stroke-current" [ngStyle]="{'width.px': diameter, 'height.px': diameter }"
+    xmlns="http://www.w3.org/2000/svg">
+    <circle fill="transparent" [style.r]="radius" [style.cx]="coordinate" [style.cy]="coordinate"
+      [style.stroke-width]="borderWidth" [style.stroke]="bgColor" [style.stroke-dasharray]="0">
+    </circle>
+    <circle fill="transparent" [style.r]="radius" [style.cx]="coordinate" [style.cy]="coordinate"
+      [style.stroke-width]="borderWidth" [style.stroke-dasharray]="strokeDasharray"
+      [style.stroke-dashoffset]="strokeDashoffset">
+    </circle>
+  </svg>
+  <div class="absolute flex items-center justify-center top-0 left-0 w-full h-full">
+    <p class="font-bold {{percentNumberClass}}">{{percentage}}<span class="font-semibold {{percentSignClass}}">%</span></p>
+  </div>
+</div>

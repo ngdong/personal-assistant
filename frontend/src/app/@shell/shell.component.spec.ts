@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SharedModule } from '@shared/shared.module';
+import { MockNgdIconsComponent } from '@core/mocks/ngd-icons.component.mock';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 
@@ -13,13 +13,13 @@ describe('ShellComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-        SharedModule
+        RouterTestingModule
       ],
       declarations: [
         ShellComponent,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        MockNgdIconsComponent
       ]
     })
     .compileComponents();
