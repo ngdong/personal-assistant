@@ -7,9 +7,7 @@ import { DOCUMENT } from '@angular/common';
   template: `
     <ng-content></ng-content>
   `,
-  styles: [
-    ':host::ng-deep svg{ width: 100%; height: 100% }',
-    ':host::ng-deep svg>path{ fill: currentColor;}' ],
+  styles: [':host::ng-deep svg{ width: 100%; height: 100% }'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgdIconsComponent {

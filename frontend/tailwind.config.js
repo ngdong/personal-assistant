@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = (isProd) => ({
   purge: {
     enabled: isProd,
@@ -7,6 +9,11 @@ module.exports = (isProd) => ({
     ]
   },
   theme: {
+    fontFamily: {
+      header: [
+        'Sansita Swashed'
+      ]
+    },
     extend: {
       colors: {
         primary: 'var(--primary)',
@@ -16,10 +23,12 @@ module.exports = (isProd) => ({
       },
       backgroundImage: theme => ({
         'app-wrapper': "url('/assets/images/background.png')"
-      })
+      }),
     },
   },
-  variants: {},
+  variants: {
+    display: ['responsive', 'hover', 'focus']
+  },
   plugins: [],
   future: {
     removeDeprecatedGapUtilities: true,

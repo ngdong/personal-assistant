@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './todo.component.html'
 })
 export class TodoComponent implements OnInit {
-
+  complete: boolean;
   constructor() { }
 
   ngOnInit(): void {
