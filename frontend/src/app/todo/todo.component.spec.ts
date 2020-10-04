@@ -1,9 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CoreModule } from '@app/@core/core.module';
+import { FormsModule } from '@angular/forms';
+import { CoreModule } from '@core/core.module';
+import { TrackByPropertyPipe } from '@shared/pipes/track-by-property.pipe';
 import { MockNgdIconsComponent } from '@core/mocks/ngd-icons.component.mock';
 import { CircularProgressComponent } from '@shared/components/circular-progress/circular-progress.component';
+import { ShowTimePipe } from './pipes/show-time.pipe';
 
 import { TodoComponent } from './todo.component';
+import { TasksService } from '@core/services/tasks.service';
+import { MockTasksService } from '@core/mocks/tasks.service.mock';
 
 describe('TodoComponent', () => {
   let component: TodoComponent;
@@ -12,14 +17,19 @@ describe('TodoComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        CoreModule
+        CoreModule,
+        FormsModule
       ],
       declarations: [
         TodoComponent,
         CircularProgressComponent,
-        MockNgdIconsComponent
+        MockNgdIconsComponent,
+        ShowTimePipe,
+        TrackByPropertyPipe
       ],
-      providers: []
+      providers: [
+        { provide: TasksService , useClass: MockTasksService}
+      ]
     })
     .compileComponents();
   }));

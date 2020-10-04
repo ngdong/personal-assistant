@@ -27,7 +27,8 @@ module.exports = (isProd) => ({
     },
   },
   variants: {
-    display: ['responsive', 'hover', 'focus']
+    display: ['responsive', 'hover', 'focus'],
+    borderWidth: ['responsive', 'hover', 'focus'],
   },
   plugins: [],
   future: {

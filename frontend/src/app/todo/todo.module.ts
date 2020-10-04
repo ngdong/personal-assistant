@@ -7,10 +7,11 @@ import { SharedModule } from '@shared/shared.module';
 import { NgdIconsRegistry } from 'ngd-icons';
 import { ngdIconNewList, ngdIconNewTask, ngdIconCancel, ngdIconChecked, ngdIconMore } from 'ngd-icons/icons';
 import { CreateTaskComponent } from './components/create-task/create-task.component';
+import { ShowTimePipe } from './pipes/show-time.pipe';
 
 
 @NgModule({
-  declarations: [TodoComponent, CreateTaskComponent],
+  declarations: [TodoComponent, CreateTaskComponent, ShowTimePipe],
   imports: [
     CommonModule,
     SharedModule,
