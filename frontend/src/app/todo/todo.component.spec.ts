@@ -9,6 +9,7 @@ import { ShowTimePipe } from './pipes/show-time.pipe';
 import { TodoComponent } from './todo.component';
 import { TasksService } from '@core/services/tasks.service';
 import { MockTasksService } from '@core/mocks/tasks.service.mock';
+import { TruncatePipe } from '@shared/pipes/truncate.pipe';
 
 describe('TodoComponent', () => {
   let component: TodoComponent;
@@ -25,7 +26,8 @@ describe('TodoComponent', () => {
         CircularProgressComponent,
         MockNgdIconsComponent,
         ShowTimePipe,
-        TrackByPropertyPipe
+        TrackByPropertyPipe,
+        TruncatePipe
       ],
       providers: [
         { provide: TasksService , useClass: MockTasksService}
