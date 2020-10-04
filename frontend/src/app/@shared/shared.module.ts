@@ -3,9 +3,17 @@ import { CommonModule } from '@angular/common';
 import { CircularProgressComponent } from './components/circular-progress/circular-progress.component';
 import { NgdIconsModule } from 'ngd-icons';
 import { FormsModule } from '@angular/forms';
+import { TrackByPropertyPipe } from './pipes/track-by-property.pipe';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 @NgModule({
-  declarations: [CircularProgressComponent],
+  declarations: [
+    // Components
+    CircularProgressComponent,
+    // Pipes
+    TrackByPropertyPipe,
+    TruncatePipe
+  ],
   imports: [
     CommonModule,
     NgdIconsModule,
@@ -14,7 +22,10 @@ import { FormsModule } from '@angular/forms';
   exports: [
     CircularProgressComponent,
     NgdIconsModule,
-    FormsModule
+    FormsModule,
+    // Pipes
+    TrackByPropertyPipe,
+    TruncatePipe
   ]
 })
 export class SharedModule {
