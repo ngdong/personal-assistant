@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TrackByPropertyPipe } from '@shared/pipes/track-by-property.pipe';
 import { MockNgdIconsComponent } from '@core/mocks/ngd-icons.component.mock';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
@@ -19,7 +20,8 @@ describe('ShellComponent', () => {
         ShellComponent,
         HeaderComponent,
         FooterComponent,
-        MockNgdIconsComponent
+        MockNgdIconsComponent,
+        TrackByPropertyPipe
       ]
     })
     .compileComponents();
