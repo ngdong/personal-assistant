@@ -1,6 +1,6 @@
 import { TruncatePipe } from './truncate.pipe';
 
-describe('TruncatePipe', () => {
+describe('TruncatePipe:unit', () => {
   const longStr = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.';
 
   it('create an instance', () => {
@@ -29,7 +29,7 @@ describe('TruncatePipe', () => {
   it('ellipsis should be ***', () => {
     const pipe = new  TruncatePipe();
     const expected = 'Lorem Ipsum***';
-    expect(pipe.transform(longStr, 12, true, '***')).toBe(expected);
+    expect(pipe.transform(longStr, 12, true, ' ', '***')).toBe(expected);
   });
 
   it('expect should be empty', () => {

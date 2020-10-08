@@ -92,10 +92,10 @@
         <div class="group mt-3 rounded-lg relative swipe-card overflow-hidden">
           <div class="p-3 bg-white rounded-lg flex flex-col">
             <div class="flex justify-between">
-              <p class="font-semibold">{{task.title | truncate: 60: true}}</p>
+              <p class="font-semibold">{{task.title | truncate : 60 : true}}</p>
               <span class="px-2 py-0 rounded-full text-sm leading-6 text-white flex-none h-full {{ task.priority | showTime}}">{{ task.due_date | date: 'shortTime'}}</span>
             </div>
-            <span class="text-sm">{{task.description | truncate: 60: true}}</span>
+            <span class="text-sm">{{task.description | truncate : 60 : true}}</span>
           </div>
           <div class="bg-gray-300 p-3 rounded-lg flex h-full justify-around items-center">
             <ngd-icons name="checked" class="w-8 h-8 cursor-pointer" (click)="makeTaskAsComplete(task)"></ngd-icons>
