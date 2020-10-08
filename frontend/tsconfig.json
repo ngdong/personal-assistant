@@ -24,6 +24,12 @@
     },
     {
       "path": "./projects/ngd-circular-progress/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ngd-modal/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ngd-modal/tsconfig.spec.json"
     }
   ]
 }

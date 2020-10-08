@@ -187,6 +187,38 @@
           }
         }
       }
+    },
+    "ngd-modal": {
+      "projectType": "library",
+      "root": "projects/ngd-modal",
+      "sourceRoot": "projects/ngd-modal/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngd-modal/tsconfig.lib.json",
+            "project": "projects/ngd-modal/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngd-modal/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngd-modal/tsconfig.lib.json",
+              "projects/ngd-modal/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "personal-assistant"
 }

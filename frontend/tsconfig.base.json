@@ -40,8 +40,8 @@
       "ngd-circular-progress": [
         "dist/ngd-circular-progress"
       ],
-      "ngd-circular-progress/*": [
-        "dist/ngd-circular-progress/*"
+      "ngd-modal": [
+        "dist/ngd-modal"
       ]
     }
   }
