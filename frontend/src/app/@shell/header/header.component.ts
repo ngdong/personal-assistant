@@ -38,18 +38,10 @@ export class HeaderComponent implements OnInit {
   }
 
   /* Check Menu is active */
-  private isMenuItemIsActive(item: MenuItem): boolean {
+  public isMenuItemIsActive(item: MenuItem): boolean {
     if (item.page.length === 0) {
       return this.currentRouteUrl === '/';
     }
     return this.currentRouteUrl.indexOf(item.page) !== -1;
-  }
-
-  /* Return menu item class */
-  public getItemCssClasses(item: MenuItem) {
-    const classes = 'block mt-4 lg:inline-block lg:mt-0 mr-4 px-4 py-1 rounded-full border border-transparent';
-    return this.isMenuItemIsActive(item)
-      ? `${classes} font-medium border-blue-500 bg-blue-500`
-      : `${classes} hover:border-white hover:bg-transparent`;
   }
 }

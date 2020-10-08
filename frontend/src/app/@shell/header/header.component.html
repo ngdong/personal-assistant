@@ -32,7 +32,9 @@
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
       <div class="text-base flex-grow">
         <ng-container *ngFor="let item of menuItems; trackBy: ('page' | trackByProperty)">
-          <a [ngClass]="getItemCssClasses(item)" [routerLink]="item.page">{{item.title}}</a>
+          <a class="block mt-4 lg:inline-block lg:mt-0 mr-4 px-4 py-1 rounded-full border border-transparent"
+            [ngClass]="isMenuItemIsActive(item) ? 'font-medium border-blue-500 bg-blue-500' :'hover:border-white hover:bg-transparent'"
+            [routerLink]="item.page">{{item.title}}</a>
         </ng-container>
       </div>
       <div class="flex items-center py-1 px-2 rounded-lg bg-teal-200 w-100 xl:w-1/3 ">
